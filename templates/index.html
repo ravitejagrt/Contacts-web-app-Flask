@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MS3 Contacts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+      <style type="text/css">
+         body {
+         background-image: url("https://i.pinimg.com/originals/a5/8d/7f/a58d7fc998ef98f889769dc143f32667.jpg");
+         background-size: cover;
+         font-size: 18px;
+		 }
+         .table td, .table th {
+         border-top: 1px solid black;
+         }
+         header {
+         height: 100px;
+         }
+         h1 {
+         text-align: center;
+         background-color: light-blue;
+         color: red;
+         height: 70%;
+         padding-top: 10px;
+         }
+         a {
+            padding: 5px;
+         }
+         a:link {
+         color: yellow;
+         }
+         a:visited {
+         color: yellow;
+         }
+         a:hover {
+         text-decoration: underline;
+         color: navy;
+         <!--font-size: 16px;-->
+         }
+         a:active {
+         color: green;
+         }
+         .nav {
+            padding-left: 20px;
+            border-top: 5px;
+            border-bottom: 5px;
+         }
+
+      </style>
+</head>
+<body>
+      <header>
+         <h1>MS3 Contacts</h1>
+      </header>
+      {% if list_data|length >= 1 %}
+      <table class="table">
+         <thead>
+            <tr>
+               <td><a class="nav" href="/contacts"> All Employees </a></td>
+            </tr>
+            <tr>
+               <th scope="col">Employee ID</th>
+               <th scope="col">FirstName</th>
+               <th scope="col">LastName</th>
+               <th scope="col">Title</th>
+               <th scope="col">Birth Date</th>
+               <th scope="col">Gender</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for data in list_data %}
+            <tr>
+               <td scope="row"> <a href="/empires/{{ data.empId }}"> {{ data.empId }} </a> </td>
+               <td scope="row"> {{ data.firstName }} </td>
+               <td scope="row"> {{ data.lastName }} </td>
+               <td scope="row"> {{ data.title }} </td>
+               <td scope="row"> {{ data.dob }} </td>
+               <td scope="row"> {{ data.gender }} </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% endif %}
+      {% if list_army_data|length >= 1 %}
+      <table class="table">
+         <thead>
+            <tr>
+               <td><a class="nav" href="/empires"> All Empires</a></td>
+               <td><a class="nav" href="/empires/{{ empire_id }}"> Go To Empire </a></td>
+            </tr>
+            <tr>
+               <th scope="col">ArmyID</th>
+               <th scope="col">ArmyName</th>
+               <th scope="col">ArmyTypeID</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for armydata in list_army_data %}
+            <tr>
+               <td scope="row"> <a href="/empires/{{ empire_id }}/army/{{ armydata.armyid }}"> {{ armydata.armyid }} </a> </td>
+               <td scope="row"> {{ armydata.armyname }} </td>
+               <td scope="row"> {{ armydata.typeid }} </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% endif %}
+
+</body>
+</html>
