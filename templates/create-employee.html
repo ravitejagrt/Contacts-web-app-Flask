@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MS3 Employees</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+      <style type="text/css">
+         body {
+<!--         background-image: url("https://i.pinimg.com/originals/a5/8d/7f/a58d7fc998ef98f889769dc143f32667.jpg");-->
+         background-size: cover;
+         font-size: 18px;
+		 }
+         .table td, .table th, .table tr {
+            border-top: 1px solid black;
+            text-align: center;
+         }
+         header {
+            height: relative;
+         }
+         h1, h2 {
+             text-align: center;
+             background-color: light-blue;
+             color: navy;
+             height: 70%;
+             padding-top: 10px;
+         }
+         a {
+            padding: 5px;
+         }
+         a:link {
+            color: navy;
+         }
+         a:visited {
+            color: navy;
+         }
+         a:hover {
+             text-decoration: underline;
+             color: navy;
+             <!--font-size: 16px;-->
+         }
+         a:active {
+            color: green;
+         }
+         .nav {
+            border-top: 5px;
+            border-bottom: 5px;
+         }
+
+      </style>
+</head>
+<div class="container">
+<body>
+      <header>
+        <h1>MS3 Contact</h1>
+        {% from 'navigation.html' import navigation %}
+        {{ navigation() }}
+      </header>
+
+      <table class="table">
+        <thead>
+            <tr>
+                <td> <h2> Enter Contact Details </h2></td>
+            </tr>
+         </thead>
+      </table>
+
+        <form class="form-horizontal" id="form-edit-client" method="post" action="/employee">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-first-name">First Name</label>
+          <div class="col-md-4">
+          <input id="client-first-name" name="firstName" type="text" placeholder="first name" class="form-control input-md">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-last-name">Last Name</label>
+          <div class="col-md-4">
+          <input id="client-last-name" name="lastName" type="text" placeholder="last name" class="form-control input-md">
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-title">Title</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-title" name="title" class="form-control" placeholder="title" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-gender">Gender</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-gender" name="gender" class="form-control" placeholder="gender" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-dob">Date of Birth</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-dob" name="dob" class="form-control" placeholder="yyyy-MM-dd" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+
+        <!-- Multiple Radios -->
+<!--        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-status">Preference</label>
+          <div class="col-md-4">
+          <div class="radio">
+            <label for="client-status-0">
+              <input type="radio" name="client-status" id="client-status-0" value="active" checked="checked">
+              True
+            </label>
+            </div>
+          <div class="radio">
+            <label for="client-status-1">
+              <input type="radio" name="client-status" id="client-status-1" value="inactive">
+              False
+            </label>
+            </div>
+          </div>
+        </div>-->
+
+        <legend><h3> Address Details </h3></legend>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-address-type">Address Type</label>
+          <div class="col-md-4">
+          <input id="client-address-type" name="addresstype" type="text" placeholder="address type" class="form-control input-md">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-house-number">House Number</label>
+          <div class="col-md-4">
+          <input id="client-house-number" name="housenumber" type="text" placeholder="house number" class="form-control input-md">
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-street">Street</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-street" name="street" class="form-control" placeholder="street" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-unit">Unit</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-unit" name="unit" class="form-control" placeholder="unit" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-city">City</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-city" name="city" class="form-control" placeholder="city" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+            <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-state">State</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-state" name="state" class="form-control" placeholder="state" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+            <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-zipcode">ZipCode</label>
+          <div class="col-md-4">
+            <div class="input-group">
+              <!--<span class="input-group-addon">@</span>-->
+              <input id="client-zipcode" name="zipcode" class="form-control" placeholder="zipcode" type="text">
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+
+        <h3> Communication Details </h3>
+            <legend></legend>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-email">Email</label>
+          <div class="col-md-4">
+          <input id="client-email" name="email" type="email" placeholder="abc@example.com" class="form-control input-md">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-phone">Phone</label>
+          <div class="col-md-4">
+          <input id="client-phone" name="phone" type="text" placeholder="1234567890" class="form-control input-md">
+          </div>
+        </div>
+
+        <!-- Multiple Radios -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="client-status-0">Preference</label>
+          <div class="col-md-4">
+          <div class="radio">
+            <label for="client-status-0">
+              <input type="radio" name="preferred" id="client-status-0" value="Email" checked="checked">
+              Email
+            </label>
+            </div>
+          <div class="radio">
+            <label for="client-status-1">
+              <input type="radio" name="preferred" id="client-status-1" value="Phone">
+              Phone
+            </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="btn-save"></label>
+          <div class="col-md-4">
+            <button id="btn-save" name="btn-save" class="btn btn-success">Create Employee</button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+</body>
+</div>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MS3 Employees</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+      <style type="text/css">
+         body {
+<!--         background-image: url("https://i.pinimg.com/originals/a5/8d/7f/a58d7fc998ef98f889769dc143f32667.jpg");-->
+         background-size: cover;
+         font-size: 18px;
+		 }
+         .table td, .table th, .table tr {
+            border-top: 1px solid black;
+            text-align: center;
+         }
+         header {
+            height: relative;
+         }
+         h1, h2 {
+             text-align: center;
+             background-color: light-blue;
+             color: navy;
+             height: 70%;
+             padding-top: 10px;
+         }
+         a {
+            padding: 5px;
+         }
+         a:link {
+            color: navy;
+         }
+         a:visited {
+            color: navy;
+         }
+         a:hover {
+             text-decoration: underline;
+             color: navy;
+             <!--font-size: 16px;-->
+         }
+         a:active {
+            color: green;
+         }
+         .nav {
+            border-top: 5px;
+            border-bottom: 5px;
+         }
+
+      </style>
+</head>
+<div class="container">
+<body>
+      <header>
+        <h1>MS3 Contact</h1>
+        {% from 'navigation.html' import navigation %}
+        {{ navigation() }}
+      </header>
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">Employee ID</th>
+               <th scope="col">FirstName</th>
+               <th scope="col">LastName</th>
+               <th scope="col">Title</th>
+               <th scope="col">Birth Date</th>
+               <th scope="col">Gender</th>
+                <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+                <td scope="row"> {{ emp_data.empId }} </a> </td>
+                <td scope="row"> {{ emp_data.firstName }} </td>
+                <td scope="row"> {{ emp_data.lastName }} </td>
+                <td scope="row"> {{ emp_data.title }} </td>
+                <td scope="row"> {{ emp_data.dob }} </td>
+                <td scope="row"> {{ emp_data.gender }} </td>
+                <td scope="row">
+                    <!--<a href="/employee/{{ emp_data.empId }}" title="view this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>-->
+                    <a href="{{ url_for('modifyEmployee', empId=emp_data.empId) }}" title="edit this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
+                    <a title="delete this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
+
+                    <!--<a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
+                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>-->
+
+                </td>
+            </tr>
+         </tbody>
+      </table>
+
+      <hr>
+      <h2> Address Details <a href="{{ url_for('newAddress', empId=emp_data.empId) }}" class="btn btn-default-btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> Add New Address</a></h2>
+
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">Address Type</th>
+               <th scope="col">Number</th>
+               <th scope="col">Street</th>
+               <th scope="col">Unit</th>
+               <th scope="col">City</th>
+               <th scope="col">State</th>
+                <th scope="col">Zipcode</th>
+                <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+         {# {% if address_data|length >= 1 %} #}
+            {% for data in address_data %}
+            <tr>
+                <td scope="row"> {{ data.type }} </td>
+                <td scope="row"> {{ data.number }} </td>
+                <td scope="row"> {{ data.street }} </td>
+                <td scope="row"> {{ data.unit }} </td>
+                <td scope="row"> {{ data.city }} </td>
+                <td scope="row"> {{ data.state }} </td>
+                <td scope="row"> {{ data.zipcode }} </td>
+                <td scope="row">
+                    <!--<a href="/employee/{{ emp_data.empId }}" title="view this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>-->
+                    <!--/employee/{{ emp_data.empId }}/updateAddress/{{ data.addressId }}-->
+                    <a href="{{ url_for('modifyAddress', empId=emp_data.empId, addressId=data.addressId) }}" title="edit this entity" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
+                    <a href="{{ url_for('deleteAddress', empId=data.empId, addressId=data.addressId) }}" title="delete this entity" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
+
+                    <!--<a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
+                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>-->
+                </td>
+            </tr>
+            {% endfor %}
+            {% if comm_data|length == 0 %}
+            <tr>
+                <td scope="row" colspan="8">No address details available for this contact</td>
+            </tr>
+            {% endif %}
+         </tbody>
+      </table>
+      {# {% endif %} #}
+
+      <hr>
+      <h2> Communication Details <a href="{{ url_for('newCommunication', empId=emp_data.empId) }}" class="btn btn-default-btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> Add New Comunication</a></h2>
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">Communication Type</th>
+               <th scope="col">Email/Phone</th>
+               <th scope="col">Preference</th>
+                <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+            {# {% if comm_data|length >= 1 %} #}
+            {% for data in comm_data %}
+            <tr>
+                <td scope="row"> {{ data.type }} </td>
+                <td scope="row"> {{ data.value }} </td>
+                <td scope="row"> {{ data.preferred }} </td>
+                <td scope="row">
+                    <!--<a href="/employee/{{ emp_data.empId }}" title="view this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>-->
+                    <a href="{{ url_for('modifyCommunication', empId=data.empId, communicationId=data.communicationId) }}" title="edit this entity" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
+                    <a href="{{ url_for('deleteCommunication', empId=data.empId, communicationId=data.communicationId) }}" title="delete this entity" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
+
+                    <!--<a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
+                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>-->
+
+                </td>
+            </tr>
+            {% endfor %}
+            {# {% endif %} #}
+            {% if comm_data|length == 0 %}
+            <tr>
+                <td scope="row" colspan="8">No communications details available for this contact</td>
+            </tr>
+            {% endif %}
+         </tbody>
+      </table>
+    <hr>
+
+      <div class="pull-right">
+        <a class="btn btn-default-btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Refresh</a>
+       <!-- <a class="btn btn-default-btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> New</a>-->
+    </div>
+
+    <!--<table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Employee ID</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Title</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Gender</th>
+            </tr>
+
+        </thead>
+        <tbody id="form-list-client-body">
+            {% for data in list_data %}
+            <tr>
+                <td scope="row"> <a href="/empires/{{ data.empId }}"> {{ data.empId }} </a> </td>
+                <td scope="row"> {{ data.firstName }} </td>
+                <td scope="row"> {{ data.lastName }} </td>
+                <td scope="row"> {{ data.title }} </td>
+                <td scope="row"> {{ data.dob }} </td>
+                <td scope="row"> {{ data.gender }} </td>
+                <td>
+                    <a title="view this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>
+                    <a title="edit this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
+                    <a title="delete this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
+
+                    <a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
+                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>-->
+</body>
+</div>
+</html>

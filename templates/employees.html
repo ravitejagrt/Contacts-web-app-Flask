@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MS3 Employees</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
+    <style type="text/css">
+         body {
+<!--         background-image: url("https://i.pinimg.com/originals/a5/8d/7f/a58d7fc998ef98f889769dc143f32667.jpg");-->
+         background-size: cover;
+         font-size: 18px;
+		 }
+         .table td, .table th, .table tr {
+            border-top: 1px solid black;
+            text-align: center;
+         }
+         header {
+            height: relative;
+         }
+         h1, h2 {
+             text-align: center;
+             background-color: light-blue;
+             color: navy;
+             height: 70%;
+             padding-top: 10px;
+         }
+         a {
+            padding: 5px;
+         }
+         a:link {
+            color: navy;
+         }
+         a:visited {
+            color: navy;
+         }
+         a:hover {
+             text-decoration: underline;
+             color: navy;
+             <!--font-size: 16px;-->
+         }
+         a:active {
+            color: green;
+         }
+         .nav {
+            border-top: 5px;
+            border-bottom: 5px;
+         }
+
+      </style>
+</head>
+<div class="container">
+<body>
+      <header>
+        <h1>MS3 Contacts</h1>
+        {% from 'navigation.html' import navigation %}
+        {{ navigation() }}
+      </header>
+      {% if list_data|length >= 1 %}
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">Employee ID</th>
+               <th scope="col">FirstName</th>
+               <th scope="col">LastName</th>
+               <th scope="col">Title</th>
+               <th scope="col">Birth Date</th>
+               <th scope="col">Gender</th>
+                <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for data in list_data %}
+            <tr>
+                <td scope="row"> <a href="/employee/{{ data.empId }}"> {{ data.empId }} </a> </td>
+                <td scope="row"> {{ data.firstName }} </td>
+                <td scope="row"> {{ data.lastName }} </td>
+                <td scope="row"> {{ data.title }} </td>
+                <td scope="row"> {{ data.dob }} </td>
+                <td scope="row"> {{ data.gender }} </td>
+                <td scope="row">
+                    <a href="/employee/{{ data.empId }}" title="view this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>
+                    <!--<a title="edit this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>-->
+                    <a title="delete this user" class="btn btn-default btn-lg "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
+
+                    <!--<a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
+                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>-->
+
+                </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% endif %}
+
+      <div class="pull-right">
+        <a class="btn btn-default-btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Refresh</a>
+        <a class="btn btn-default-btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> New</a>
+    </div>
+
+    <!--<table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Employee ID</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Title</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Gender</th>
+            </tr>
+
+        </thead>
+        <tbody id="form-list-client-body">
+            {% for data in list_data %}
+            <tr>
+                <td scope="row"> <a href="/empires/{{ data.empId }}"> {{ data.empId }} </a> </td>
+                <td scope="row"> {{ data.firstName }} </td>
+                <td scope="row"> {{ data.lastName }} </td>
+                <td scope="row"> {{ data.title }} </td>
+                <td scope="row"> {{ data.dob }} </td>
+                <td scope="row"> {{ data.gender }} </td>
+                <td>
+                    <a title="view this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>
+                    <a title="edit this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
+                    <a title="delete this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
+
+                    <a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
+                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>-->
+</body>
+</div>
+</html>
