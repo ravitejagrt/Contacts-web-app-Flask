@@ -18,6 +18,8 @@ Steps to run this application
 
 ### `python app.py`
 
+* Link is here: http://localhost:5000/employee
+
 * This app can perfrom CRUD operations on employees and contact details
 
 * The Employee details are stores in MySql database which is to be configured before running the ms3-contact-api mule application.
