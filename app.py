@@ -1,10 +1,13 @@
-import json
+import configparser
+
 import flask
-from flask import Flask, jsonify, render_template, request, Response, flash
-from flask_restful import Resource, Api
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import requests
-import configparser
+
+# import json
+# from flask import Response, flash
+# from flask_restful import Resource, Api
 
 config = configparser.RawConfigParser()
 config.read('ms3-properties.properties')
@@ -87,10 +90,16 @@ def employee():
         empId = response.json()["empId"]
         return flask.redirect("/employee/" + str(empId))
     if flask.request.method == 'GET':
-        response = requests.get((config['ms3.contacts.web.api']['url'] + config['resource']['identification']))
-        print("response::: ", response)
-        employees = [emp for emp in response.json()]
-        return render_template("employees.html", list_data=employees)
+        employees = []
+        error = {}
+        try:
+            response = requests.get((config['ms3.contacts.web.api']['url'] + config['resource']['identification']))
+            # print("response::: ", response)
+            employees = [emp for emp in response.json()]
+        except requests.exceptions.RequestException as e:
+            print("error message", e);
+            error = {'message': 'Server is down. Please try again later.'}
+        return render_template("employees.html", list_data=employees, error=error)
 
 @app.route('/newEmployee', methods=['GET'])
 def newEmployee():
@@ -219,5 +228,20 @@ def deleteCommunication(empId, communicationId):
     response = requests.delete((config['ms3.contacts.web.api']['url'] + config['resource']['identification'] + "/" + empId + config['resource']['communication'] + "/" + communicationId))
     return flask.redirect("/employee/" + empId)
 
+@app.route('/process', methods=['POST'])
+def process():
+    lastName = request.form['lastName']
+    firstName = request.form['firstName']
+
+    response = requests.get((config['ms3.contacts.web.api']['url'] + config['resource']['identification']))
+
+    if firstName and lastName:
+        employees = [emp for emp in response.json() if ((emp['firstName'] == firstName) and (emp['lastName'] == lastName))]
+        print('employees :: ', employees)
+        # return render_template("employees.html", list_data=employees)
+        return jsonify({'firstName': firstName})
+    return jsonify({'error': 'Missing data!'})
+
+
 if __name__ == '__main__':
-	 app.run(host='0.0.0.0', port=5000)
+	 app.run()
