@@ -15,19 +15,6 @@ config.read('ms3-properties.properties')
 app = Flask(__name__)
 CORS(app) ## To allow direct AJAX calls
 
-# with open('Empires.JSON') as json_data:
-#     d = json.load(json_data)
-#     list_of_empires = []
-#     for data in d['empires']:
-#     	list_of_empires.append(data)
-#
-# with open('Army.JSON') as army_data:
-# 	a = json.load(army_data)
-# 	list_of_armies = []
-# 	for army in a['armies']:
-# 		list_of_armies.append(army)
-# 	print("list_of_armies: ", list_of_armies)
-
 @app.route('/', methods =['GET'])
 def home():
 	return render_template("employees.html")
